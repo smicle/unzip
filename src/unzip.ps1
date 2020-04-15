@@ -14,7 +14,7 @@ for ($i = 0; $i -ne $arg.Length - $name.Length; $i++) {
 
 cd $path
 
-$dir = $name.Substring(1, $name.length - 5)
+$dir = $name.Substring(0, $name.length - 5)
 mkdir $dir
 cd $dir
 
