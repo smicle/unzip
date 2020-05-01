@@ -1,33 +1,5 @@
-$arg = $args.Split("")
-
-$tmp = @()
-for ($i = $arg.Length; $arg[$i] -ne '\'; $i--) {
-	$tmp += $arg[$i - 1]
-}
-for ($i = $tmp.Length - 2; $i -ge 0; $i--) {
-	$name += $tmp[$i]
-}
-
-for ($i = 0; $i -ne $arg.Length - $name.Length; $i++) {
-	$path += $arg[$i]
-}
-
-cd $path
-
-$dir = $name.Substring(0, $name.length - 5)
-mkdir $dir
-cd $dir
-
-Expand-Archive -Path $("../" + $name) -DestinationPath ./
-
-$list = ls -Name
-if ($list.Count -ne 1) {
-	return
-}
-if (("" + $(ls | Select-Object Mode)[0]).Substring(7, 1) -ne "d") {
-	return
-}
-
-mv $list ../
-cd ../
-rm $dir
+# C:\Users\smicle\Downloads\test.zip
+$zip = $args[0]
+$dir = $zip.split(".zip")[0]
+& 'C:\Program Files\7-Zip\7z.exe' x -y -o"$dir" $zip | Out-Null
+mv $zip	$dir
